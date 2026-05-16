@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca</title>
+
+    <link rel="stylesheet" href="./assets/css/index.css">
+</head>
+
+<body>
+
+    <div class="navbar">
+
+        <h2>Biblioteca Pessoal</h2>
+
+        <div>
+
+            <span id="loggedUser"></span>
+
+            <button class="logout-btn" onclick="logout()">
+                Sair
+            </button>
+
+        </div>
+
+    </div>
+
+    <div class="container">
+
+        <input type="hidden" id="bookId">
+
+        <input type="text" id="title" placeholder="Título">
+
+        <input type="text" id="author" placeholder="Autor">
+
+        <input type="text" id="description" placeholder="Descrição">
+
+        <button class="save-btn" onclick="saveBook()">
+            Salvar
+        </button>
+
+        <hr>
+
+        <div id="books"></div>
+
+    </div>
+
+    <script src="./assets/js/script.js"></script>
+
+</body>
+
+</html>
