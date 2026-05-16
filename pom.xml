@@ -19,21 +19,20 @@
 
     <properties>
         <java.version>21</java.version>
-
-        <!-- ============================================================
-            Descomentar ao adicionar CI / Sonar / JaCoCo
-
         <jacoco.version>0.8.11</jacoco.version>
 
-        <sonar.projectKey></sonar.projectKey>
+        <!-- SonarCloud — valores confirmados na tela Project Information -->
+        <sonar.projectKey>ryan-teodoro-f-b-tinoco_task-manager</sonar.projectKey>
         <sonar.projectName>task-manager</sonar.projectName>
-        <sonar.organization></sonar.organization>
+        <sonar.organization>ryan-teodoro-f-b-tinoco</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
 
+        <!-- Aponta o Sonar para o XML gerado pelo JaCoCo -->
         <sonar.coverage.jacoco.xmlReportPaths>
             ${project.build.directory}/site/jacoco/jacoco.xml
         </sonar.coverage.jacoco.xmlReportPaths>
 
+        <!-- Classes sem lógica de negócio — excluídas da análise do Sonar -->
         <sonar.exclusions>
             **/TaskManagerApplication.java,
             **/dto/**,
@@ -48,8 +47,6 @@
             **/config/SecurityConfig.java,
             **/config/RestTemplateConfig.java
         </sonar.coverage.exclusions>
-             ============================================================ -->
-
     </properties>
 
     <dependencies>
@@ -85,6 +82,7 @@
             <optional>true</optional>
         </dependency>
 
+        <!-- TEST (mockito excluído conforme exigência do projeto) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -101,24 +99,28 @@
             </exclusions>
         </dependency>
 
+        <!-- TESTCONTAINERS -->
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>testcontainers</artifactId>
             <scope>test</scope>
         </dependency>
 
+        <!-- TESTCONTAINERS MONGODB -->
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>mongodb</artifactId>
             <scope>test</scope>
         </dependency>
 
+        <!-- TESTCONTAINERS JUNIT -->
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>junit-jupiter</artifactId>
             <scope>test</scope>
         </dependency>
 
+        <!-- WIREMOCK — VCR para chamadas HTTP externas (record/replay) -->
         <dependency>
             <groupId>org.wiremock</groupId>
             <artifactId>wiremock-standalone</artifactId>
@@ -137,27 +139,29 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
 
-            <!-- ============================================================
-                 Descomentar ao adicionar CI / Sonar / JaCoCo
-
+            <!-- SONARCLOUD -->
             <plugin>
                 <groupId>org.sonarsource.scanner.maven</groupId>
                 <artifactId>sonar-maven-plugin</artifactId>
                 <version>3.11.0.3922</version>
             </plugin>
 
+            <!-- JACOCO -->
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>${jacoco.version}</version>
+
                 <executions>
 
+                    <!-- Instrumenta o bytecode antes dos testes -->
                     <execution>
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
                     </execution>
 
+                    <!-- Gera relatório HTML + XML após os testes -->
                     <execution>
                         <id>report</id>
                         <phase>test</phase>
@@ -166,6 +170,7 @@
                         </goals>
                     </execution>
 
+                    <!-- Falha o build (fase verify) se cobertura < 80% -->
                     <execution>
                         <id>check</id>
                         <phase>verify</phase>
@@ -202,7 +207,6 @@
 
                 </executions>
             </plugin>
-                 ============================================================ -->
 
         </plugins>
     </build>
