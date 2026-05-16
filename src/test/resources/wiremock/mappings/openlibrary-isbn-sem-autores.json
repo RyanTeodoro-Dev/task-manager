@@ -1,0 +1,18 @@
+{
+    "request": {
+        "method": "GET",
+        "urlPathPattern": "/api/books",
+        "queryParameters": {
+            "bibkeys": {
+                "equalTo": "ISBN:SEM_AUTORES"
+            }
+        }
+    },
+    "response": {
+        "status": 200,
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "bodyFileName": "openlibrary-sem-autores.json"
+    }
+}

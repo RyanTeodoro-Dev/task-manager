@@ -1,0 +1,18 @@
+{
+    "request": {
+        "method": "GET",
+        "urlPathPattern": "/api/books",
+        "queryParameters": {
+            "bibkeys": {
+                "equalTo": "ISBN:CHAVE_DIFERENTE"
+            }
+        }
+    },
+    "response": {
+        "status": 200,
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "body": "{\"ISBN:OUTRO_ISBN\": {\"title\": \"Outro Livro\"}}"
+    }
+}

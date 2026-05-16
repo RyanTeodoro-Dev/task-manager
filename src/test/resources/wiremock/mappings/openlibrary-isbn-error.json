@@ -1,0 +1,18 @@
+{
+    "request": {
+        "method": "GET",
+        "urlPathPattern": "/api/books",
+        "queryParameters": {
+            "bibkeys": {
+                "equalTo": "ISBN:ERROR_ISBN"
+            }
+        }
+    },
+    "response": {
+        "status": 500,
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "body": "Internal Server Error"
+    }
+}
