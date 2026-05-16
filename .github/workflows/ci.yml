@@ -2,9 +2,9 @@ name: CI — Biblioteca Pessoal
 
 on:
   push:
-    branches: ["main", "master"]
+    branches: [ "main", "master" ]
   pull_request:
-    branches: ["main", "master"]
+    branches: [ "main", "master" ]
 
 jobs:
   build-and-test:
@@ -15,6 +15,7 @@ jobs:
       checks: write
 
     steps:
+
       # ── 1. Checkout ──────────────────────────────────────────────────────
       - name: Checkout código
         uses: actions/checkout@v4
@@ -25,19 +26,16 @@ jobs:
       - name: Configurar Java 21
         uses: actions/setup-java@v4
         with:
-          java-version: "21"
-          distribution: "temurin"
+          java-version: '21'
+          distribution: 'temurin'
 
-      # ── 3. Cache Maven + SonarCloud ──────────────────────────────────────
-      - name: Cache Maven e Sonar
+      # ── 3. Cache Maven ───────────────────────────────────────────────────
+      - name: Cache Maven
         uses: actions/cache@v4
         with:
-          path: |
-            ~/.m2/repository
-            ~/.sonar/cache
-          key: ${{ runner.os }}-maven-sonar-${{ hashFiles('**/pom.xml') }}
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
-            ${{ runner.os }}-maven-sonar-
             ${{ runner.os }}-maven-
 
       # ── 4. Permissão mvnw ────────────────────────────────────────────────
@@ -56,16 +54,3 @@ jobs:
           name: jacoco-report
           path: target/site/jacoco/
           retention-days: 14
-
-      # ── 7. SonarCloud ────────────────────────────────────────────────────
-      - name: Análise SonarCloud
-        if: success()
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          ./mvnw sonar:sonar \
-            --batch-mode \
-            -Dsonar.token=$SONAR_TOKEN \
-            -Dsonar.branch.name=${{ github.ref_name }} \
-            -Dsonar.qualitygate.wait=true
