@@ -151,6 +151,32 @@ class OpenLibraryVcrTest {
                 .andExpect(jsonPath("$.publisher").doesNotExist());
     }
 
+    // Cassete: openlibrary-isbn-autores-vazios.json
+    // Deve retornar found=true mas sem author e publisher quando as listas existem mas estão vazias
+    @Test
+    @DisplayName("VCR: deve retornar found=true sem author e publisher quando listas são vazias")
+    void shouldReturnBookWithEmptyAuthorsAndPublishersList() throws Exception {
+        mockMvc.perform(get("/books/isbn/AUTORES_VAZIOS"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.found").value(true))
+                .andExpect(jsonPath("$.title").value("Livro Com Listas Vazias"))
+                .andExpect(jsonPath("$.isbn").value("AUTORES_VAZIOS"))
+                .andExpect(jsonPath("$.author").doesNotExist())
+                .andExpect(jsonPath("$.publisher").doesNotExist());
+    }
+
+    // Cassete: openlibrary-isbn-resposta-vazia.json
+    // Deve retornar found=false quando a API retorna corpo em branco (isBlank)
+    @Test
+    @DisplayName("VCR: deve retornar found=false quando a API retorna corpo em branco")
+    void shouldReturnNotFoundWhenResponseBodyIsBlank() throws Exception {
+        mockMvc.perform(get("/books/isbn/RESPOSTA_VAZIA"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.found").value(false))
+                .andExpect(jsonPath("$.isbn").value("RESPOSTA_VAZIA"))
+                .andExpect(jsonPath("$.message").value("Livro não encontrado na Open Library"));
+    }
+
     // Garante que nenhuma chamada fora dos cassetes mapeados foi feita durante os testes
     @Test
     @DisplayName("VCR: nenhuma chamada não mapeada deve ser feita à API externa")

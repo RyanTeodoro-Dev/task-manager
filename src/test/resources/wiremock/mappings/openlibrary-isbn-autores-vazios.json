@@ -1,0 +1,24 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPathPattern": "/api/books",
+    "queryParameters": {
+      "bibkeys": {
+        "equalTo": "ISBN:AUTORES_VAZIOS"
+      },
+      "format": {
+        "equalTo": "json"
+      },
+      "jscmd": {
+        "equalTo": "data"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyFileName": "openlibrary-authors-vazios.json"
+  }
+}

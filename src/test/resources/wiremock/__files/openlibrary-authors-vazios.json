@@ -1,0 +1,8 @@
+{
+  "ISBN:AUTORES_VAZIOS": {
+    "title": "Livro Com Listas Vazias",
+    "number_of_pages": 100,
+    "authors": [],
+    "publishers": []
+  }
+}

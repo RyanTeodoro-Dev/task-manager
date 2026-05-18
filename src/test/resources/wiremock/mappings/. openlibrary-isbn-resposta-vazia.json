@@ -1,0 +1,24 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPathPattern": "/api/books",
+    "queryParameters": {
+      "bibkeys": {
+        "equalTo": "ISBN:RESPOSTA_VAZIA"
+      },
+      "format": {
+        "equalTo": "json"
+      },
+      "jscmd": {
+        "equalTo": "data"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": "   "
+  }
+}
